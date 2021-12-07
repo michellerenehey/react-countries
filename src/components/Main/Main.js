@@ -1,6 +1,7 @@
 import '../styles/Main.css';
 import { useState, useEffect } from 'react';
 import { getCountries } from '../../services/countries';
+import CountryCard from '../CountryCard/CountryCard';
 
 export default function Main() {
   const [countries, setCountries] = useState([]);
@@ -13,5 +14,11 @@ export default function Main() {
     fetchData();
   }, []);
 
-  return <main></main>;
+  return (
+    <main>
+      {countries.map((country) => (
+        <CountryCard key={country.id} {...country} />
+      ))}
+    </main>
+  );
 }
