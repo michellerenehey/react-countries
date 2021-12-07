@@ -6,24 +6,38 @@ import CountryCard from '../CountryCard/CountryCard';
 export default function Main() {
   const [countries, setCountries] = useState([]);
   const [query, setQuery] = useState('');
-  const [continent, setContinent] = useState('All');
-  const [continents, setContinents] = useState([]);
+  const [selector, setSelector] = useState('All');
+  const [loading, setLoading] = useState(true); //initially loading div is true
 
   useEffect(() => {
+    //setCountries state
     const fetchData = async () => {
       const data = await getCountries();
       setCountries(data);
+      setLoading(false); // once data is there, loading div is false
       console.log(data);
     };
     fetchData();
-
-    const continentList = countries.map; //map through countries to get names of continents // create a new set out of the array "new Set" (note, must spread set into array)
   }, []);
+
+  function getContinents() {
+    //create list of continents
+    const continentList = countries.map((country) => country.continent);
+    const uniqueContinentList = [...new Set(continentList), 'All'];
+    console.log(uniqueContinentList);
+
+    //remove null value
+    const continentListArray = uniqueContinentList.filter((item) => item);
+    return continentListArray;
+
+    // return [... new Set(countries.map(({ continent }) => continent).filter(Boolean))]
+  }
 
   function filterCountries() {
     return countries.filter((item) => item.name.toLowerCase().includes(query));
   }
 
+  if (loading) return <div>page is loading</div>;
   return (
     <>
       <input
@@ -33,14 +47,10 @@ export default function Main() {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for a country"
       />
-      <select value={continent} onChange={(e) => setContinent(e.target.value)}>
-        <option></option>
-        <option></option>
-        <option></option>
-        <option></option>
-        <option></option>
-        <option></option>
-        <option></option>
+      <select value={selector} onChange={(e) => setSelector(e.target.value)}>
+        {getContinents().map((item, index) => (
+          <option key={index} value={item}>{`${item}`}</option>
+        ))}
       </select>
 
       {filterCountries().map((country) => (
