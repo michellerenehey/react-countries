@@ -1,1 +1,12 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.countryName {
+  font-weight: bold;
+  padding: 20px;
+  font-size: larger;
+}
