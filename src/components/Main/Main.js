@@ -6,6 +6,8 @@ import CountryCard from '../CountryCard/CountryCard';
 export default function Main() {
   const [countries, setCountries] = useState([]);
   const [query, setQuery] = useState('');
+  const [continent, setContinent] = useState('All');
+  const [continents, setContinents] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +16,8 @@ export default function Main() {
       console.log(data);
     };
     fetchData();
+
+    const continentList = countries.map; //map through countries to get names of continents // create a new set out of the array "new Set" (note, must spread set into array)
   }, []);
 
   function filterCountries() {
@@ -29,6 +33,16 @@ export default function Main() {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for a country"
       />
+      <select value={continent} onChange={(e) => setContinent(e.target.value)}>
+        <option></option>
+        <option></option>
+        <option></option>
+        <option></option>
+        <option></option>
+        <option></option>
+        <option></option>
+      </select>
+
       {filterCountries().map((country) => (
         <CountryCard key={country.id} {...country} />
       ))}
