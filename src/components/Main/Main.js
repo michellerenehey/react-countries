@@ -16,7 +16,7 @@ export default function Main() {
       const data = await getCountries();
       setCountries(data);
       setLoading(false); // once data is there, loading div is false
-      console.log(data);
+      // console.log(data);
     };
     fetchData();
   }, []);
@@ -25,7 +25,7 @@ export default function Main() {
     //create list of continents
     const continentList = countries.map((country) => country.continent);
     const uniqueContinentList = [...new Set(continentList), 'All'];
-    console.log(uniqueContinentList);
+    // console.log(uniqueContinentList);
 
     //remove null value
     const continentListArray = uniqueContinentList.filter((item) => item);
