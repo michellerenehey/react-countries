@@ -8,6 +8,7 @@ export default function Main() {
   const [query, setQuery] = useState('');
   const [selector, setSelector] = useState('All');
   const [loading, setLoading] = useState(true); //initially loading div is true
+  const [sorted, setSorted] = useState(false);
 
   useEffect(() => {
     //setCountries state
@@ -34,17 +35,34 @@ export default function Main() {
   }
 
   function filterCountriesAndContinents() {
-    return countries.filter((item) => {
+    let filteredCountries = countries.filter((item) => {
       return (
         item.name.toLowerCase().includes(query) &&
         (item.continent === selector || selector === 'All')
       );
     });
+    if (sorted === true) {
+      return filteredCountries.sort((a, b) => {
+        return a.name > b.name ? 1 : -1;
+      });
+    } else {
+      return filteredCountries;
+    }
   }
 
-  if (loading) return <div>...page is loading...</div>;
+  // function toggleSort() {
+  //   let sorted = countries.sort((a, b) => {
+  //     return a.name > b.name ? 1 : -1;
+  //   });
+  //   setCountries(sorted);
+  // }
+
+  if (loading) return <div>...Loading...</div>;
   return (
     <>
+      <button value="true" onClick={() => setSorted((prevState) => !prevState)}>
+        Sort Ascending
+      </button>
       <input
         name="searchBar"
         type="text"
