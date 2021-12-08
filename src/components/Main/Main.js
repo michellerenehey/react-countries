@@ -33,11 +33,16 @@ export default function Main() {
     // return [... new Set(countries.map(({ continent }) => continent).filter(Boolean))]
   }
 
-  function filterCountries() {
-    return countries.filter((item) => item.name.toLowerCase().includes(query));
+  function filterCountriesAndContinents() {
+    return countries.filter((item) => {
+      return (
+        item.name.toLowerCase().includes(query) &&
+        (item.continent === selector || selector === 'All')
+      );
+    });
   }
 
-  if (loading) return <div>page is loading</div>;
+  if (loading) return <div>...page is loading...</div>;
   return (
     <>
       <input
@@ -53,7 +58,7 @@ export default function Main() {
         ))}
       </select>
 
-      {filterCountries().map((country) => (
+      {filterCountriesAndContinents().map((country) => (
         <CountryCard key={country.id} {...country} />
       ))}
     </>
