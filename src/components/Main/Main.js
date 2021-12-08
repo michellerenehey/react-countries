@@ -50,13 +50,6 @@ export default function Main() {
     }
   }
 
-  // function toggleSort() {
-  //   let sorted = countries.sort((a, b) => {
-  //     return a.name > b.name ? 1 : -1;
-  //   });
-  //   setCountries(sorted);
-  // }
-
   if (loading) return <div>...Loading...</div>;
   return (
     <>
